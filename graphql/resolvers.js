@@ -1,4 +1,4 @@
-export const resolvers = {
+const resolvers = {
   Query: {
     getUsers: () => {
       const users = [
@@ -16,3 +16,5 @@ export const resolvers = {
     },
   },
 };
+
+module.exports = { resolvers };

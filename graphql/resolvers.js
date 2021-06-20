@@ -1,17 +1,9 @@
+const { User } = require('../models');
+
 const resolvers = {
   Query: {
-    getUsers: () => {
-      const users = [
-        {
-          email: 'john@email.com',
-          username: 'john',
-        },
-        {
-          email: 'jane@email.com',
-          username: 'jane',
-        },
-      ];
-
+    getUsers: async () => {
+      const users = await User.findAll();
       return users;
     },
   },

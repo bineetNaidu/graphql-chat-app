@@ -1,0 +1,29 @@
+{
+  "name": "graphql-chat-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bineetNaidu/graphql-chat-app.git"
+  },
+  "keywords": [],
+  "author": "BineetNaidu <bineetnaiduapps@gmail.com> (https://bineetnaidu.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bineetNaidu/graphql-chat-app/issues"
+  },
+  "homepage": "https://github.com/bineetNaidu/graphql-chat-app#readme",
+  "dependencies": {
+    "apollo-server": "^2.25.1",
+    "graphql": "^15.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

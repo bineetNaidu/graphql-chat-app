@@ -1,19 +1,10 @@
-import { ApolloServer, gql } from 'apollo-server';
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => 'hello World!',
-  },
-};
+import path from 'path';
+import fs from 'fs';
+import { ApolloServer } from 'apollo-server';
+import { resolvers } from './graphql/resolvers.js';
 
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: fs.readFileSync(path.join('./graphql/schema.graphql'), 'utf8'),
   resolvers,
 });
 

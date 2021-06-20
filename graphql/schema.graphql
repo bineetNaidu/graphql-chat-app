@@ -1,8 +1,18 @@
 type User {
   username: String!
   email: String!
+  imageUrl: String
 }
 
 type Query {
   getUsers: [User]!
+}
+
+type Mutation {
+  register(
+    email: String!
+    username: String!
+    password: String!
+    confirmPassword: String!
+  ): User!
 }

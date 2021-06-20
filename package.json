@@ -20,6 +20,7 @@
   "homepage": "https://github.com/bineetNaidu/graphql-chat-app#readme",
   "dependencies": {
     "apollo-server": "^2.25.1",
+    "bcryptjs": "^2.4.3",
     "graphql": "^15.5.0",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.4",

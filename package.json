@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js"
@@ -21,7 +20,10 @@
   "homepage": "https://github.com/bineetNaidu/graphql-chat-app#readme",
   "dependencies": {
     "apollo-server": "^2.25.1",
-    "graphql": "^15.5.0"
+    "graphql": "^15.5.0",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

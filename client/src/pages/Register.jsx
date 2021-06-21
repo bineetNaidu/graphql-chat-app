@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { useMutation, gql } from '@apollo/client';
+import { Link } from 'react-router-dom';
 
 const REGISTER = gql`
   mutation Register(
@@ -115,6 +116,10 @@ export default function Register({ history }) {
             <Button variant="success" type="submit">
               Register
             </Button>
+            <br />
+            <small>
+              Already Have an account? <Link to="/login">Login instead!</Link>
+            </small>
           </div>
         </Form>
       </Col>

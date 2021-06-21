@@ -87,7 +87,7 @@ const resolvers = {
 
         if (!verified) {
           errors.password = 'Incorrect Password';
-          throw new AuthenticationError('Incorrect Password', { errors });
+          throw new UserInputError('Incorrect Password', { errors });
         }
 
         const token = jwt.sign({ id: user.id }, JWT_SECRET, {

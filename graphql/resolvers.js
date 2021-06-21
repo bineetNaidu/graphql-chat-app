@@ -7,19 +7,14 @@ const { Op } = require('sequelize');
 
 const resolvers = {
   Query: {
-    getUsers: async (_, __, { req }) => {
+    getUsers: async (_, __, { user }) => {
       try {
-        let user;
-        if (req.headers && req.headers.authorization) {
-          const token = req.headers.authorization.split('Bearer ')[1];
-          jwt.verify(token, JWT_SECRET, (err, decode) => {
-            if (err) throw new AuthenticationError('Unauthenticated');
-            user = decode.id;
-          });
+        if (!user) {
+          throw new AuthenticationError('Not Authenticated');
         }
         const users = await User.findAll({
           where: {
-            id: { [Op.ne]: user },
+            id: { [Op.ne]: user.id },
           },
         });
         return users;
@@ -97,6 +92,14 @@ const resolvers = {
         return { user, token };
       } catch (err) {
         console.log(err.message);
+        throw err;
+      }
+    },
+
+    sendMessage: async (_, args, { req }) => {
+      const { content, to } = args;
+      try {
+      } catch (err) {
         throw err;
       }
     },

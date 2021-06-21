@@ -5,6 +5,13 @@ type User {
   createdAt: String!
 }
 
+type Message {
+  uuid: String!
+  content: String!
+  from: String!
+  to: String!
+}
+
 type AuthResponseType {
   user: User!
   token: String!
@@ -22,4 +29,5 @@ type Mutation {
     confirmPassword: String!
   ): User!
   login(username: String!, password: String!): AuthResponseType
+  sendMessage(to: String!, content: String!): Message!
 }

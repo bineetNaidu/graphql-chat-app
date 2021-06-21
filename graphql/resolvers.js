@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Message } = require('../models');
 const bcrypt = require('bcryptjs');
 const { UserInputError, AuthenticationError } = require('apollo-server-errors');
 const jwt = require('jsonwebtoken');
@@ -14,7 +14,7 @@ const resolvers = {
         }
         const users = await User.findAll({
           where: {
-            id: { [Op.ne]: user.id },
+            username: { [Op.ne]: user.username },
           },
         });
         return users;
@@ -85,7 +85,7 @@ const resolvers = {
           throw new UserInputError('Incorrect Password', { errors });
         }
 
-        const token = jwt.sign({ id: user.id }, JWT_SECRET, {
+        const token = jwt.sign({ username: user.username }, JWT_SECRET, {
           expiresIn: '1h',
         });
 
@@ -96,9 +96,27 @@ const resolvers = {
       }
     },
 
-    sendMessage: async (_, args, { req }) => {
+    sendMessage: async (_, args, { user }) => {
       const { content, to } = args;
       try {
+        if (!user) {
+          throw new AuthenticationError('Not Authenticated');
+        }
+        if (content.trim() === '')
+          throw new UserInputError('Content cant be empty');
+        const recipient = await User.findOne({ where: { username: to } });
+        if (!recipient) {
+          throw new UserInputError('Recipient was not found!');
+        } else if (recipient.username === user.username) {
+          throw new UserInputError('You cant send message to yourself!');
+        }
+
+        const msg = await Message.create({
+          from: user.username,
+          to,
+          content,
+        });
+        return msg;
       } catch (err) {
         throw err;
       }

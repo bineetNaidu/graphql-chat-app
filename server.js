@@ -7,6 +7,7 @@ const { sequelize } = require('./models/index.js');
 const server = new ApolloServer({
   typeDefs: fs.readFileSync(path.join('./graphql/schema.graphql'), 'utf8'),
   resolvers,
+  context: (ctx) => ctx,
 });
 
 server.listen().then(({ url }) => {

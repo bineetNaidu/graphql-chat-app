@@ -1,12 +1,32 @@
 const { User } = require('../models');
 const bcrypt = require('bcryptjs');
 const { UserInputError, AuthenticationError } = require('apollo-server-errors');
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../constants');
+const { Op } = require('sequelize');
 
 const resolvers = {
   Query: {
-    getUsers: async () => {
-      const users = await User.findAll();
-      return users;
+    getUsers: async (_, __, { req }) => {
+      try {
+        let user;
+        if (req.headers && req.headers.authorization) {
+          const token = req.headers.authorization.split('Bearer ')[1];
+          jwt.verify(token, JWT_SECRET, (err, decode) => {
+            if (err) throw new AuthenticationError('Unauthenticated');
+            user = decode.id;
+          });
+        }
+        const users = await User.findAll({
+          where: {
+            id: { [Op.ne]: user },
+          },
+        });
+        return users;
+      } catch (err) {
+        console.log(err.message);
+        throw err;
+      }
     },
   },
   Mutation: {
@@ -70,7 +90,11 @@ const resolvers = {
           throw new AuthenticationError('Incorrect Password', { errors });
         }
 
-        return user;
+        const token = jwt.sign({ id: user.id }, JWT_SECRET, {
+          expiresIn: '1h',
+        });
+
+        return { user, token };
       } catch (err) {
         console.log(err.message);
         throw err;

@@ -22,7 +22,7 @@ const REGISTER = gql`
   }
 `;
 
-export default function Register() {
+export default function Register({ history }) {
   const [register] = useMutation(REGISTER);
   const [variables, setVariables] = useState({
     email: '',
@@ -43,6 +43,7 @@ export default function Register() {
       await register({
         variables,
       });
+      history.push('/login');
     } catch (err) {
       setErrors(err.graphQLErrors[0].extensions.errors);
     }

@@ -20,3 +20,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.user-div:hover {
+  background-color: rgb(250, 250, 250);
+}

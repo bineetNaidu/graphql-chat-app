@@ -11,6 +11,7 @@ import {
 } from '@apollo/client';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/auth';
+import { MessageProvider } from './context/message';
 
 import { setContext } from '@apollo/client/link/context';
 
@@ -40,7 +41,9 @@ ReactDOM.render(
     <BrowserRouter>
       <ApolloProvider client={client}>
         <AuthProvider>
-          <App />
+          <MessageProvider>
+            <App />
+          </MessageProvider>
         </AuthProvider>
       </ApolloProvider>
     </BrowserRouter>

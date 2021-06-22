@@ -1,8 +1,9 @@
 type User {
   username: String!
-  email: String!
-  imageUrl: String
+  email: String
+  imageUrl: String!
   createdAt: String!
+  latestMessage: Message
 }
 
 type Message {

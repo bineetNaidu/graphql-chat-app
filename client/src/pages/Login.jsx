@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { useMutation, gql } from '@apollo/client';
 import { Link } from 'react-router-dom';
+import { useAuthDispatch } from '../context/auth';
 
 const LOGIN = gql`
   mutation Login($username: String!, $password: String!) {
@@ -26,6 +27,7 @@ export default function Login({ history }) {
     username: '',
     password: '',
   });
+  const dispatch = useAuthDispatch();
 
   const submitLoginForm = async (e) => {
     e.preventDefault();
@@ -33,7 +35,10 @@ export default function Login({ history }) {
       const { data } = await login({
         variables,
       });
-      localStorage.setItem('token:chatql', data.login.token);
+      dispatch({
+        type: 'LOGIN',
+        payload: data.login,
+      });
       history.push('/');
     } catch (err) {
       setErrors(err.graphQLErrors[0].extensions.errors);

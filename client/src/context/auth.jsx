@@ -5,11 +5,11 @@ const AuthStateContext = createContext();
 const AuthDispatchContext = createContext();
 
 let user = null;
-const token = localStorage.getItem('token');
+const token = localStorage.getItem('token:chatql');
 if (token) {
   const decodedToken = jwtDecode(token);
   const expiresAt = new Date(decodedToken.exp * 1000);
-
+  console.log(decodedToken);
   if (new Date() > expiresAt) {
     localStorage.removeItem('token:chatql');
   } else {
@@ -23,7 +23,7 @@ const authReducer = (state, action) => {
       localStorage.setItem('token:chatql', action.payload.token);
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
       };
     case 'LOGOUT':
       localStorage.removeItem('token:chatql');

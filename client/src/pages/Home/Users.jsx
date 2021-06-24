@@ -51,12 +51,7 @@ const Users = () => {
             dispatch({ type: 'SET_SELECTED_USER', payload: user.username })
           }
         >
-          <Image
-            src={user.imageUrl}
-            roundedCircle
-            className="mr-2"
-            style={{ width: 50, height: 50, objectFit: 'cover' }}
-          />
+          <Image src={user.imageUrl} className="mr-2 user-image" />
           <div>
             <p className="text-success mb-0">{user.username}</p>
             <p className="font-weight-light mb-0">

@@ -24,3 +24,24 @@ code {
 .user-div:hover {
   background-color: rgb(250, 250, 250);
 }
+
+.gray-bg {
+  background-color: rgb(245, 245, 245);
+}
+
+.messages-box {
+  height: 500px;
+  overflow-y: scroll;
+
+  scrollbar-width: none;
+}
+
+.messages-box::-webkit-scrollbar {
+  display: none;
+}
+.user-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}

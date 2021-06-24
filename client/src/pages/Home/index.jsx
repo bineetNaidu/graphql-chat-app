@@ -4,12 +4,12 @@ import Users from './Users';
 import { useAuthDispatch } from '../../context/auth';
 import Messages from './Messages';
 
-export default function Home({ history }) {
+export default function Home() {
   const dispatch = useAuthDispatch();
 
   const logout = () => {
     dispatch({ type: 'LOGOUT' });
-    history.push('/login');
+    window.location.href = '/login';
   };
 
   return (

@@ -42,7 +42,7 @@ const Messages = () => {
         },
       });
     }
-  }, [selectedUser, messagesData, dispatch]);
+  }, [messagesData]);
 
   let selectedChatMarkup;
   if (!messages && !messagesLoading) {

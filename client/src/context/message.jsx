@@ -33,6 +33,22 @@ const messageReducer = (state, action) => {
         ...state,
         users: usersCopy,
       };
+
+    case 'ADD_MESSAGE':
+      usersCopy = [...state.users];
+      const userIdx = usersCopy.findIndex(
+        (u) => u.username === action.payload.username
+      );
+      usersCopy[userIdx] = {
+        ...usersCopy[userIdx],
+        messages: [action.payload.message, ...usersCopy[userIdx].messages],
+      };
+
+      return {
+        ...state,
+        users: usersCopy,
+      };
+
     default:
       throw new Error(`Unknown action type: ${action.type}`);
   }

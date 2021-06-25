@@ -34,3 +34,7 @@ type Mutation {
   login(username: String!, password: String!): AuthResponseType
   sendMessage(to: String!, content: String!): Message!
 }
+
+type Subscription {
+  newMessage: Message!
+}

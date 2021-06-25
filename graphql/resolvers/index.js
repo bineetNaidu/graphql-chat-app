@@ -10,6 +10,9 @@ const resolvers = {
     ...UserResolvers.Mutation,
     ...MessageResolvers.Mutation,
   },
+  Subscription: {
+    ...MessageResolvers.Subscription,
+  },
 };
 
 module.exports = { resolvers };

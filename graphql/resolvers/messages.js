@@ -32,7 +32,7 @@ const MessageResolvers = {
     },
   },
   Mutation: {
-    sendMessage: async (_, args, { user }) => {
+    sendMessage: async (_, args, { user, pubsub }) => {
       const { content, to } = args;
       try {
         if (!user) {
@@ -52,10 +52,23 @@ const MessageResolvers = {
           to,
           content,
         });
+
+        pubsub.publish('NEW_MESSAGE', { newMessage: msg });
+
         return msg;
       } catch (err) {
         throw err;
       }
+    },
+  },
+  Subscription: {
+    newMessage: {
+      subscribe: (_, __, { pubsub, user }) => {
+        if (!user) {
+          throw new AuthenticationError('Not Authenticated');
+        }
+        return pubsub.asyncIterator(['NEW_MESSAGE']);
+      },
     },
   },
 };

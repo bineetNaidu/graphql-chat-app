@@ -41,7 +41,10 @@ const messageReducer = (state, action) => {
       );
       usersCopy[userIdx] = {
         ...usersCopy[userIdx],
-        messages: [action.payload.message, ...usersCopy[userIdx].messages],
+        messages: usersCopy[userIdx].messages
+          ? [action.payload.message, ...usersCopy[userIdx].messages]
+          : null,
+        latestMessage: action.payload.message,
       };
 
       return {

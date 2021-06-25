@@ -41,15 +41,6 @@ const Messages = () => {
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (err) => console.log(err),
-    onCompleted: (data) => {
-      dispatch({
-        type: 'ADD_MESSAGE',
-        payload: {
-          message: data.sendMessage,
-          username: selectedUser.username,
-        },
-      });
-    },
   });
 
   useEffect(() => {

@@ -1,6 +1,10 @@
 const { User, Message, Reaction } = require('../../models');
-const { UserInputError, AuthenticationError } = require('apollo-server-errors');
-
+const {
+  ForbiddenError,
+  UserInputError,
+  AuthenticationError,
+} = require('apollo-server-errors');
+const { withFilter } = require('apollo-server');
 const ReactionResolvers = {
   Query: {},
   Mutation: {
@@ -42,7 +46,7 @@ const ReactionResolvers = {
           });
         }
 
-        // pubsub.publish('NEW_REACTION', { newReaction: reaction });
+        pubsub.publish('NEW_REACTION', { newReaction: reaction });
 
         return reaction;
       } catch (err) {
@@ -51,7 +55,24 @@ const ReactionResolvers = {
       }
     },
   },
-  Subscription: {},
+  Subscription: {
+    newReaction: {
+      subscribe: withFilter(
+        (_, __, { pubsub, user }) => {
+          if (!user) throw new AuthenticationError('Unauthenticated');
+          return pubsub.asyncIterator('NEW_REACTION');
+        },
+        async ({ newReaction }, _, { user }) => {
+          const message = await newReaction.getMessage();
+          if (message.from === user.username || message.to === user.username) {
+            return true;
+          }
+
+          return false;
+        }
+      ),
+    },
+  },
 };
 
 module.exports = { ReactionResolvers };

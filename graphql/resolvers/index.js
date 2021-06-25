@@ -31,6 +31,7 @@ const resolvers = {
   },
   Subscription: {
     ...MessageResolvers.Subscription,
+    ...ReactionResolvers.Subscription,
   },
 };
 

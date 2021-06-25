@@ -6,6 +6,15 @@ type User {
   latestMessage: Message
 }
 
+type Reaction {
+  uuid: String!
+  content: String!
+  user: User!
+  message: Message!
+  createdAt: String
+  updatedAt: String
+}
+
 type Message {
   uuid: String!
   content: String!
@@ -33,6 +42,7 @@ type Mutation {
   ): User!
   login(username: String!, password: String!): AuthResponseType
   sendMessage(to: String!, content: String!): Message!
+  reactToMessage(uuid: String!, content: String!): Reaction!
 }
 
 type Subscription {

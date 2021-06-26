@@ -21,6 +21,7 @@ type Message {
   from: String!
   to: String!
   createdAt: String!
+  reactions: [Reaction]
 }
 
 type AuthResponseType {

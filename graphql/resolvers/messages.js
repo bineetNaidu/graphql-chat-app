@@ -1,4 +1,4 @@
-const { User, Message } = require('../../models');
+const { User, Message, Reaction } = require('../../models');
 const { UserInputError, AuthenticationError } = require('apollo-server-errors');
 const { withFilter } = require('apollo-server');
 const { Op } = require('sequelize');
@@ -24,6 +24,12 @@ const MessageResolvers = {
             to: { [Op.in]: usernames },
           },
           order: [['createdAt', 'DESC']],
+          include: [
+            {
+              model: Reaction,
+              as: 'reactions',
+            },
+          ],
         });
 
         return msg;

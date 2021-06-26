@@ -12,6 +12,10 @@ const GET_MESSAGES = gql`
       from
       to
       createdAt
+      reactions {
+        uuid
+        content
+      }
     }
   }
 `;
@@ -93,13 +97,13 @@ const Messages = () => {
   }
 
   return (
-    <Col xs={10} md={8}>
-      <div className="messages-box d-flex flex-column-reverse">
+    <Col xs={10} md={8} className="p-0">
+      <div className="messages-box d-flex flex-column-reverse p-3">
         {selectedChatMarkup}
       </div>
-      <div>
+      <div className="px-3 py-2">
         <Form onSubmit={submitMessage}>
-          <Form.Group className="d-flex align-items-center px-3">
+          <Form.Group className="d-flex align-items-center px-3 m-0">
             <Form.Control
               type="text"
               className="message-input rounded-pill p-4 gray-bg border-0"

@@ -17,7 +17,7 @@ const REACT_TO_MESSAGE = gql`
 export default function Message({ message }) {
   const { user } = useAuthState();
   const [showPopover, setShowPopover] = useState(false);
-  // const reactionIcons = [...new Set(message.reactions?.map((r) => r.content))];
+  const reactionIcons = [...new Set(message.reactions?.map((r) => r.content))];
   const sent = message.from === user.username;
   const received = !sent;
 
@@ -79,16 +79,16 @@ export default function Message({ message }) {
         transition={false}
       >
         <div
-          className={classNames('py-2 px-3 rounded-pill', {
+          className={classNames('py-2 px-3 rounded-pill position-relative', {
             'bg-primary': sent,
             'gray-bg': received,
           })}
         >
-          {/* {message.reactions.length > 0 && (
-            <div className="reactions-div bg-secondary p-1 rounded-pill">
+          {message.reactions.length > 0 && (
+            <div className="reactions-div gray-bg p-1 rounded-pill">
               {reactionIcons} {message.reactions.length}
             </div>
-          )} */}
+          )}
           <p
             className={classNames('mb-0', { 'text-white': sent })}
             key={message.uuid}
